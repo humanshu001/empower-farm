@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const authRoutes = require('./routes/auth');
 
 dotenv.config();
 
@@ -63,6 +64,8 @@ app.post('/api/products', async (req, res) => {
     res.status(500).json({ message: 'Error creating product' });
   }
 });
+
+app.use('/api/auth', authRoutes);
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
