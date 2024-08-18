@@ -1,19 +1,52 @@
+import { useState, useEffect } from "react";
 import { BuyCard } from "./BuyCards";
 
-export default function Buy(){
-    return(
+interface Product {
+    _id: string;
+    title: string;
+    description: string;
+    image: string;
+    price: number;
+    mobile: string;
+    whatsapp: string;
+}
+
+export default function Buy() {
+    const [products, setProducts] = useState<Product[]>([]);
+
+    const url = 'http://localhost:5000/api/products';
+
+    useEffect(() => {
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            setProducts(data);
+        })
+        .catch(error => {
+            console.error('Error fetching products:', error);
+        });
+    }, []);
+
+    return (
         <>
             <h1 className="text-center text-4xl font-black py-6 px-3">Buy Leftover Products by Fellow Farmers</h1>
-        <div className="flex justify-center items-center container flex-wrap">
-          
-        <BuyCard title="Urea ka katta" description="12 kilo urea rheta h mere paas kisi ko bhi chahiye ho bata do" imageUrl="https://picsum.photos/1600/900" price={100} mobile={9034710039} whatsapp={8930963832}/>
-        <BuyCard title="Urea ka katta" description="12 kilo urea rheta h mere paas kisi ko bhi chahiye ho bata do" imageUrl="https://picsum.photos/1600/900" price={100} mobile={9034710039} whatsapp={8930963832}/>
-        <BuyCard title="Urea ka katta" description="12 kilo urea rheta h mere paas kisi ko bhi chahiye ho bata do" imageUrl="https://picsum.photos/1600/900" price={100} mobile={9034710039} whatsapp={8930963832}/>
-        <BuyCard title="Urea ka katta" description="12 kilo urea rheta h mere paas kisi ko bhi chahiye ho bata do" imageUrl="https://picsum.photos/1600/900" price={100} mobile={9034710039} whatsapp={8930963832}/>
-        <BuyCard title="Urea ka katta" description="12 kilo urea rheta h mere paas kisi ko bhi chahiye ho bata do" imageUrl="https://picsum.photos/1600/900" price={100} mobile={9034710039} whatsapp={8930963832}/>
-        <BuyCard title="Urea ka katta" description="12 kilo urea rheta h mere paas kisi ko bhi chahiye ho bata do" imageUrl="https://picsum.photos/1600/900" price={100} mobile={9034710039} whatsapp={8930963832}/>
-        <BuyCard title="Urea ka katta" description="12 kilo urea rheta h mere paas kisi ko bhi chahiye ho bata do" imageUrl="https://picsum.photos/1600/900" price={100} mobile={9034710039} whatsapp={8930963832}/>
-        </div>
+            <div className="flex justify-center items-center container flex-wrap">
+                {products.map(product => (
+                    <BuyCard
+                        title={product.title}
+                        description={product.description}
+                        imageUrl={product.image}
+                        price={product.price}
+                        mobile={Number(product.mobile)}
+                        whatsapp={Number(product.whatsapp)}
+                    />
+                ))}
+            </div>
         </>
-    )
+    );
 }
