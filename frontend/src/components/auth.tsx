@@ -6,8 +6,17 @@ import {
   } from "@/components/ui/tabs"
 import { Login } from "./login"
 import { Register } from "./register"
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Auth() {
+    const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+    useEffect(() => {
+      if(token) {
+        navigate('/profile');
+      }
+    },[]);
     return(
       <div className="container flex flex-col items-center justify-center h-screen">
         <Tabs defaultValue="register" className="w-96">

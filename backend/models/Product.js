@@ -8,7 +8,8 @@ const productSchema = new mongoose.Schema({
   image: { type: String},
   category: { type: String, required: true },
   mobile: { type: String, required: true },
-  whatsapp: { type: String, required: true }
+  whatsapp: { type: String, required: true },
+  email: { type: String, required: true },
 }, {
   timestamps: true
 });

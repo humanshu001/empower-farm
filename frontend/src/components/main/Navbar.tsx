@@ -5,10 +5,10 @@ import { IoMenu } from "react-icons/io5";
 import { NavigationMenu, NavigationMenuList, NavigationMenuLink } from "@/components/ui/navigation-menu"
 import { Link } from "react-router-dom";
 import { ModeToggle } from "../mode-toggle";
-
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  
+  const navigate = useNavigate();
   return (
     <header className="h-20 lg:border-b-2 border-[#27272A] flex">
       <div className="flex container w-full items-center justify-between px-4 md:px-6">
@@ -47,11 +47,9 @@ export default function Navbar() {
               Profile
             </Link>
             <div className="flex justify-between">
-            <Link to="/auth" className="flex items-center text-lg bg-transparent justify- font-semibold" >
-              <Button className="rounded-full font-black">
-                SIGN-IN / REGISTER
+              <Button onClick={()=>{localStorage.removeItem('token');navigate('/auth')}} className="rounded-full bg-destructive text-foreground hover:bg-red-500 font-black">
+                LOGOUT
               </Button>
-            </Link>
             <ModeToggle />
             </div>
           </div>
@@ -108,11 +106,9 @@ export default function Navbar() {
             </Link>
           </NavigationMenuLink>
           <NavigationMenuLink asChild>
-            <Link to='/auth'>
-              <Button className="font-black rounded-full">
-                SIGN-IN / REGISTER
+            <Button onClick={()=>{localStorage.removeItem('token');navigate('/auth')}} className="rounded-full bg-destructive text-foreground hover:bg-red-500 font-black">
+                LOGOUT
               </Button>
-            </Link>
           </NavigationMenuLink>
           <ModeToggle />
         </NavigationMenuList>

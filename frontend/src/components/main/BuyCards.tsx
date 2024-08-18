@@ -31,7 +31,7 @@ export function BuyCard({title, description, imageUrl, price, mobile,whatsapp}:{
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <AspectRatio ratio={16 / 9} className="bg-muted">
+        <AspectRatio ratio={16 / 9} className="bg-muted overflow-hidden rounded">
           <img src={imageUrl} alt=""  className="rounded-md object-cover" />
         </AspectRatio>
       </CardContent>

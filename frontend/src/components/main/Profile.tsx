@@ -1,26 +1,51 @@
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Card } from "../ui/card";
 import SoldCards from "./SoldCards";
+import { jwtDecode} from 'jwt-decode';
+import { useEffect, useState } from "react";
 
 export default function Profile() {
+  const token : any = localStorage.getItem('token');
+
+  // decode this jwt token to get user details
+  const usertoken: any = jwtDecode(token);
+  
+
+  const user = usertoken.user;
+  const [products, setProducts] = useState([]);
+
+  const url = "http://localhost:5000/api/user-products?email=" + user.email;
+
+  useEffect(() => {
+    fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    setProducts(data);
+  })
+  .catch(error => {
+    console.error('Error fetching products:', error);
+  });
+  }
+  , []);
+
   return (
     <>
       <div className="container lg:py-5 px-2">
         <Card className="flex lg:flex-row md:flex-col xl:flex-row flex-col p-2">
           <Card className="lg:w-[30%] xl:w-[30%] m-2 p-3 py-4 bg-secondary">
-            <div className="flex justify-center">
+            <div className="flex justify-center py-4 pb-6">
               <Avatar className="w-[100px] h-[100px]">
-                <AvatarImage className="object-cover" src="https://static.vecteezy.com/system/resources/thumbnails/030/361/147/small/a-man-in-a-turban-standing-in-a-field-ai-generated-free-photo.jpg" />
+                <AvatarImage className="object-cover" src="https://static.vecteezy.com/system/resources/thumbnails/004/911/389/small_2x/ear-of-wheat-icon-template-black-color-editable-free-vector.jpg" />
               </Avatar>
             </div>
             <h1 className="text-2xl font-extrabold text-center">
-              Ramkishan
+              {user.firstName + " " + user.lastName}
             </h1>
             <h3 className="text-md text-center">
-              Panipat, Haryana
+              {user.address}
             </h3>
             <h4 className="text-center my-3 text-xl font-medium">
-              Farm Score: <span className="font-extrabold ">230</span>
+              Farm Score: <span className="font-extrabold ">{products.length}</span>
             </h4>
             <h4 className="text-center my-3 text-sm lg:px-16 xl:px-16 md:px-16">
               Farm Score stands for the number of products you have sold on Empower Farm.
@@ -31,12 +56,17 @@ export default function Profile() {
               My Products
             </h1>
             <div className="flex flex-wrap justify-center">
-
-            <SoldCards name="Wheat" description="Freshly harvested wheat from my farm" imageUrl="https://picsum.photos/1600/900" price={2000} />
-            <SoldCards name="Rice" description="Freshly harvested rice from my farm" imageUrl="https://picsum.photos/1600/900" price={3000} />
-            <SoldCards name="Barley" description="Freshly harvested barley from my farm" imageUrl="https://picsum.photos/1600/900" price={2500} />
-            <SoldCards name="Corn" description="Freshly harvested corn from my farm" imageUrl="https://picsum.photos/1600/900" price={1500} />
-            <SoldCards name="Fertilizer" description="Organic fertilizer for your farm" imageUrl="https://picsum.photos/1600/900" price={500} />
+              {
+                products.map((product: any) => (
+                  <SoldCards
+                    key={product._id}
+                    name={product.name}
+                    description={product.description}
+                    imageUrl={"http://localhost:5000/images/" + product.image}
+                    price={product.price}
+                  />
+              ))
+              }
             </div>
           </Card>
         </Card>

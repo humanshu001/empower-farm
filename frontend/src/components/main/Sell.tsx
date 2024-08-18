@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "../ui/separator"
 import { useState } from "react"
 import { toast } from "sonner"
+import { jwtDecode } from "jwt-decode"
 
 
 export default function Sell() {
@@ -22,6 +23,12 @@ export default function Sell() {
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
   const [image, setImage] = useState(null);
+
+  const token: any = localStorage.getItem('token');
+
+  const usertoken: any = jwtDecode(token);
+
+  const user = usertoken.user;
 
   const handleFileChange = (e:any) => {
     setImage(e.target.files[0]);
@@ -53,8 +60,9 @@ export default function Sell() {
         price: price,
         category: category,
         image: data,
-        mobile: "9876543210",
-        whatsapp: "9876543210",
+        mobile: user.mobile,
+        whatsapp: user.whatsapp,
+        email: user.email,
       };
       fetch(url, {
         method: 'POST',

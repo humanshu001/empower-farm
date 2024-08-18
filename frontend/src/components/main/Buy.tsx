@@ -3,7 +3,7 @@ import { BuyCard } from "./BuyCards";
 
 interface Product {
     _id: string;
-    title: string;
+    name: string;
     description: string;
     image: string;
     price: number;
@@ -38,9 +38,10 @@ export default function Buy() {
             <div className="flex justify-center items-center container flex-wrap">
                 {products.map(product => (
                     <BuyCard
-                        title={product.title}
+                        key={product._id}
+                        title={product.name}
                         description={product.description}
-                        imageUrl={product.image}
+                        imageUrl={"http://localhost:5000/images/" + product.image}
                         price={product.price}
                         mobile={Number(product.mobile)}
                         whatsapp={Number(product.whatsapp)}
