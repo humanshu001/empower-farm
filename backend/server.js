@@ -54,6 +54,7 @@ app.get('/api/products/:id', async (req, res) => {
 app.post('/api/products', async (req, res) => {
   try {
     const newProduct = new Product(req.body);
+    console.log(req.body);
     const savedProduct = await newProduct.save();
     res.status(201).json(savedProduct);
   } catch (error) {
@@ -103,10 +104,7 @@ app.post('/upload', (req, res) => {
       if (req.file == undefined) {
         res.status(400).json({ message: 'No file selected!' });
       } else {
-        res.status(200).json({
-          message: 'File uploaded successfully!',
-          filename: req.file.filename
-        });
+        res.status(200).json(req.file.filename);
       }
     }
   });
