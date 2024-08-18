@@ -1,17 +1,6 @@
 import RetroGrid from "@/components/magicui/retro-grid";
-import { Card } from "../ui/card";
-import Marquee from "../magicui/marquee";
-import { MarqueeDemo } from "../marq";
 
 export default function Home() {
-  const categories = [
-    "Fertilizers",
-    "Pesticides",
-    "Seeds",
-    "Tools",
-    "Machinery",
-    "Others"
-  ]
   return (
     <>
         <RetroGrid />
