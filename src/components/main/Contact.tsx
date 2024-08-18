@@ -14,7 +14,7 @@ export default function Contact() {
       <p className="text-xl font-bold mb-5">We're here to help! If you have any questions or need assistance, feel free to reach out. Just fill out the form below, and we'll get back to you as soon as possible.
       </p>
      
-        <Card className="p-4 w-[500px] m-auto">
+        <Card className="p-4 lg:w-[50%] md:w-[80%] m-auto">
           <CardContent>
           <div className="space-y-8">
       <div className="space-y-2">

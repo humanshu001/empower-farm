@@ -25,7 +25,7 @@ export default function Navbar() {
                 </Button>
             </div>
         </SheetTrigger>
-        <SheetContent side="left">
+        <SheetContent side="right">
           <Link to="/" >
             <PiFarmBold size={30} />
             <span className="sr-only">Empower Farm</span>
@@ -46,12 +46,14 @@ export default function Navbar() {
             <Link to="/profile" className="flex w-full items-center py-2 text-lg bg-transparent font-semibold" >
               Profile
             </Link>
-            <Link to="/auth" className="flex w-full items-center py-2 text-lg bg-transparent justify-center font-semibold" >
+            <div className="flex justify-between">
+            <Link to="/auth" className="flex items-center text-lg bg-transparent justify- font-semibold" >
               <Button className="rounded-full font-black">
                 SIGN-IN / REGISTER
               </Button>
             </Link>
             <ModeToggle />
+            </div>
           </div>
         </SheetContent>
       </Sheet>
