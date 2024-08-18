@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const multer = require('multer');
+const path = require('path');
 
 dotenv.config();
 
@@ -12,7 +14,6 @@ const User = require('./models/User');
 
 const cors = require('cors');
 app.use(cors({
-    app.use(cors());
     credentials: true,
 }));
 
@@ -24,11 +25,6 @@ mongoose.connect(process.env.MONGO_URI)
     console.error('Failed to connect to MongoDB', err);
   });
 
-
-const products = [
-  { id: 1, name: 'Product 1', description: 'Description for product 1', price: 100 },
-  { id: 2, name: 'Product 2', description: 'Description for product 2', price: 200 },
-];
 
 
 app.get('/api/products', async (req, res) => {
@@ -61,6 +57,57 @@ app.post('/api/products', async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error creating product' });
   }
+});
+
+
+// Set storage engine
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'images/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); // Append the file extension
+  }
+});
+
+// Initialize upload
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 }, 
+  fileFilter: function (req, file, cb) {
+    checkFileType(file, cb);
+  }
+}).single('image'); 
+
+// Check file type
+function checkFileType(file, cb) {
+  const filetypes = /jpeg|jpg|png|gif/;
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+    return cb(null, true);
+  } else {
+    cb('Error: Images Only!');
+  }
+}
+
+// File upload endpoint
+app.post('/upload', (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      res.status(400).json({ message: err });
+    } else {
+      if (req.file == undefined) {
+        res.status(400).json({ message: 'No file selected!' });
+      } else {
+        res.status(200).json({
+          message: 'File uploaded successfully!',
+          filename: req.file.filename
+        });
+      }
+    }
+  });
 });
 
 const PORT = process.env.PORT || 5000
