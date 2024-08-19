@@ -14,7 +14,7 @@ export default function Profile() {
   const user = usertoken.user;
   const [products, setProducts] = useState([]);
 
-  const url = "http://localhost:5000/api/user-products?email=" + user.email;
+  const url = "https://empower-farm-backend.vercel.app/api/user-products?email=" + user.email;
 
   useEffect(() => {
     fetch(url)
@@ -62,7 +62,7 @@ export default function Profile() {
                     key={product._id}
                     name={product.name}
                     description={product.description}
-                    imageUrl={"http://localhost:5000/images/" + product.image}
+                    imageUrl={"https://empower-farm-backend.vercel.app/images/" + product.image}
                     price={product.price}
                   />
               ))

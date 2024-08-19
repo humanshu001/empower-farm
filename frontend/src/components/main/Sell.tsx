@@ -41,8 +41,8 @@ export default function Sell() {
       return;
     }
 
-    const fileUrl = 'http://localhost:5000/upload';
-    const url = 'http://localhost:5000/api/products';
+    const fileUrl = 'https://empower-farm-backend.vercel.app/upload';
+    const url = 'https://empower-farm-backend.vercel.app/api/products';
     const imageData = new FormData();
     imageData.append('image', image);
 

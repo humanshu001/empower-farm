@@ -14,7 +14,7 @@ interface Product {
 export default function Buy() {
     const [products, setProducts] = useState<Product[]>([]);
 
-    const url = 'http://localhost:5000/api/products';
+    const url = 'https://empower-farm-backend.vercel.app/api/products';
 
     useEffect(() => {
         fetch(url, {
@@ -41,7 +41,7 @@ export default function Buy() {
                         key={product._id}
                         title={product.name}
                         description={product.description}
-                        imageUrl={"http://localhost:5000/images/" + product.image}
+                        imageUrl={"https://empower-farm-backend.vercel.app/images/" + product.image}
                         price={product.price}
                         mobile={Number(product.mobile)}
                         whatsapp={Number(product.whatsapp)}

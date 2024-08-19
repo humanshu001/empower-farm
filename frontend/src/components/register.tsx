@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 
 export function Register() {
-  const url = 'http://localhost:5000/register';
+  const url = 'https://empower-farm-backend.vercel.app/register';
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -26,7 +26,7 @@ export function Register() {
       if (email) {
         setLoading(true);
         try {
-          const response = await fetch(`http://localhost:5000/check-email?email=${email}`);
+          const response = await fetch(`https://empower-farm-backend.vercel.app/check-email?email=${email}`);
           const data = await response.json();
           setEmailExists(data);  // Assume API returns { exists: true/false }
         } catch (error) {
