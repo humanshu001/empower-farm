@@ -40,6 +40,10 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.json({ message: 'API is running...' });
+});
+
 app.get('/api/user-products', async (req, res) => {
   const email = req.query.email;
   try {
