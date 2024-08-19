@@ -127,7 +127,7 @@ app.post('/upload', (req, res) => {
 });
 
 // endpoint to serve all images
-app.use('/images', express.static('images'));
+app.use(express.static('images'));
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
