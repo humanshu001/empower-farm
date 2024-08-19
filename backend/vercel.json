@@ -5,13 +5,21 @@
       "src": "server.js",
       "use": "@vercel/node",
       "config": { "includeFiles": ["dist/**"] }
-     }
+     },
+     {
+        "src": "./images/*",
+
+        "use": "@vercel/static"
+    }
     ],
     "routes": [
      {
       "src": "/(.*)",
-      "dest": "server.js",
-      "handle": "filesystem"
+      "dest": "server.js"
+     },
+     {
+        "src": "/images/(.*)",
+        "dest": "/images/$1"
      }
     ]
    }
