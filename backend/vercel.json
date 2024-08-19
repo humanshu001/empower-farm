@@ -5,7 +5,12 @@
       "src": "server.js",
       "use": "@vercel/node",
       "config": { "includeFiles": ["dist/**"] }
-     }
+     },
+     {
+        "src": "./images/*",
+
+        "use": "@vercel/static"
+    }
     ],
     "routes": [
      {

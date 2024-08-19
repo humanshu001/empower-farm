@@ -6,6 +6,7 @@ const multer = require('multer');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 
+
 dotenv.config();
 
 const app = express();
@@ -127,7 +128,7 @@ app.post('/upload', (req, res) => {
 });
 
 // endpoint to serve all images
-app.use('/images', express.static('images'));
+app.use(express.static(path.join(__dirname, 'images')));
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
