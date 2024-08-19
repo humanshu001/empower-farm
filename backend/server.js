@@ -18,7 +18,7 @@ const cors = require('cors');
 
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:5173'
+    origin: 'https://empower-farm.vercel.app'
 }));
 
 mongoose.connect(process.env.MONGO_URI)
